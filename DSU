@@ -1,0 +1,35 @@
+class Dsu{
+    vector<int> par, size;
+    public:
+    Dsu(int V){
+        par.resize(V);
+        size.resize(V);
+        for(int i =0; i < V; i++){
+            par[i] = i;
+            size[i] = 1;
+        }
+        
+    }
+    int findPar(int i){
+        if(par[i] == i)
+        return i;
+        return par[i] = findPar(par[i]);
+    }
+    void sUnion(int u, int v){
+        
+        int parU = findPar(u);
+        int parV = findPar(v);
+        
+        if(parU == parV) return ;
+        
+        if(size[parV] < size[parU]){
+            par[parV] =  parU;
+            size[parU] += size[parV];
+        }
+        else{
+            par[parU] =  parV;
+            size[parV] += size[parU];
+        }
+        
+    }
+};
